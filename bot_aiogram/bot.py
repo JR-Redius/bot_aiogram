@@ -11,6 +11,7 @@ async def echo(message: types.Message):
 #     executor.start_polling(dp, skip_updates=True)
 
 
+
 # Хэндлер на команду /start
 @dp.message_handler(commands=["start"])
 async def cmd_start(message: types.Message):
