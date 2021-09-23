@@ -29,12 +29,12 @@ def get_keyboard():
 
 async def update_num_text(message: types.Message, new_value: int):
     # Общая функция для обновления текста с отправкой той же клавиатуры
-    await message.edit_text(f"Укажите число: {new_value}", reply_markup=get_keyboard())
+    await message.edit_text(f"! \n Укажите число: {new_value} \n !", reply_markup=get_keyboard())
 
-@dp.message_handler(commands="numbers")
+@dp.message_handler(commands="111")
 async def cmd_numbers(message: types.Message):
     user_data[message.from_user.id] = 0
-    await message.answer("Укажите число: 0", reply_markup=get_keyboard())
+    await message.answer("! \n Укажите число: 0 \n !", reply_markup=get_keyboard())
 
 @dp.callback_query_handler(lambda c: c.data.startswith('num_'))
 async def callbacks_num(call: types.CallbackQuery):
