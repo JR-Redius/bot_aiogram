@@ -17,8 +17,8 @@ user_data = {}
 def get_keyboard():
     # Генерация клавиатуры.
     buttons = [
-        types.InlineKeyboardButton(text="-1", callback_data="num_decr"),
-        types.InlineKeyboardButton(text="+1", callback_data="num_incr"),
+        types.InlineKeyboardButton(text="Изменить пароль", callback_data="num_decr"),
+        types.InlineKeyboardButton(text="Изменить имя", callback_data="num_incr"),
         types.InlineKeyboardButton(text="Подтвердить", callback_data="num_finish")
     ]
     # Благодаря row_width=2, в первом ряду будет две кнопки, а оставшаяся одна
@@ -29,12 +29,18 @@ def get_keyboard():
 
 async def update_num_text(message: types.Message, new_value: int):
     # Общая функция для обновления текста с отправкой той же клавиатуры
-    await message.edit_text(f"! \n Укажите число: {new_value} \n !", reply_markup=get_keyboard())
+    await message.edit_text("Информация о пользователя: 1040 \n"
+                                        "****************************************\n"
+                                        f"Укажите число: {new_value} \n"
+                                        "\n****************************************\n", reply_markup=get_keyboard())
 
 @dp.message_handler(commands="111")
 async def cmd_numbers(message: types.Message):
     user_data[message.from_user.id] = 0
-    await message.answer("! \n Укажите число: 0 \n !", reply_markup=get_keyboard())
+    await message.answer("Информация о пользователя: 1040 \n"
+                                        "****************************************\n"
+                                        "Укажите число: 0\n"
+                                        "\n****************************************\n", reply_markup=get_keyboard())
 
 @dp.callback_query_handler(lambda c: c.data.startswith('num_'))
 async def callbacks_num(call: types.CallbackQuery):
@@ -53,7 +59,10 @@ async def callbacks_num(call: types.CallbackQuery):
         # вызовом await call.message.delete_reply_markup().
         # Но т.к. мы редактируем сообщение и не отправляем новую клавиатуру, 
         # то она будет удалена и так.
-        await call.message.edit_text(f"Итого: {user_value}")
+        await call.message.edit_text("Информация о пользователя: 1040 \n"
+                                        "****************************************\n"
+                                        f"Укажите число: {user_value} \n"
+                                        "\n****************************************\n")
     # Не забываем отчитаться о получении колбэка
     await call.answer()
 
