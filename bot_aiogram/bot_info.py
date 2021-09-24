@@ -1,4 +1,5 @@
 import logging
+import mySearchNumber
 from typing import Text
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
@@ -21,12 +22,15 @@ def getKeyboard():
 
 @dp.message_handler(content_types=types.ContentTypes.TEXT)
 async def getFirstMessage(message: types.Message):
-    await message.answer("Информация о пользователя: FIO \n"
+    if len(message.text) == 4 and message.text.isdigit():
+        user_info = mySearchNumber.getSearchNumber(message.text)
+    await message.answer(f"Информация о пользователя: {user_info['fullname']} \n"
                                         "****************************************\n"
-                                        f"Номер телефона: {message.text}\n"
-                                        "Имя пользователя: 0\n"
-                                        "IP адресс устройства: 0\n"
-                                        "Модель устройсва: 0\n"
+                                        f"Номер телефона: {user_info['name']}\n"
+                                        f"Имя пользователя: {user_info['fullname']}\n"
+                                        f"Пароль: {user_info['secret']}\n"
+                                        f"IP адресс устройства: {user_info['ipaddr']} \n"
+                                        f"Модель устройсва: {user_info['useragent']}\n"
                                         "\n****************************************\n", reply_markup=getKeyboard())
 
 
