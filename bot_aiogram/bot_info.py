@@ -1,7 +1,7 @@
 import logging
-#from typing import Text
+from typing import Text
 from aiogram import Bot, Dispatcher, types, executor
-#from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
 bot = Bot(token="1966342656:AAEikQMfVsuHureW2I8fJhPJtx4zG64rVvc")
 dp=Dispatcher(bot)
@@ -21,8 +21,14 @@ def getKeyboard():
 
 @dp.message_handler(content_types=types.ContentTypes.TEXT)
 async def getFirstMessage(message: types.Message):
-    await message.answer(message.text)
+    await message.answer("Информация о пользователя: FIO \n"
+                                        "****************************************\n"
+                                        f"Номер телефона: {message.text}\n"
+                                        "Имя пользователя: 0\n"
+                                        "IP адресс устройства: 0\n"
+                                        "Модель устройсва: 0\n"
+                                        "\n****************************************\n", reply_markup=getKeyboard())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
