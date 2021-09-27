@@ -2,9 +2,9 @@ import pymysql.cursors
 
 def getConnection():
     connection = pymysql.connect(
-        host = '127.0.0.1',
+        host = '172.13.12.27',
         user = 'jred',
-        password = 'wudiw01e',
+        password = 'A912n157tno',
         db = 'asterisk',
         cursorclass = pymysql.cursors.DictCursor
     )

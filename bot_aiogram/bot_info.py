@@ -9,7 +9,7 @@ dp=Dispatcher(bot)
 
 logging.basicConfig(level=logging.INFO)
 
-
+#-------Создание блока клавиатуры-------------------
 def getKeyboard():
     buttons =[
         types.InlineKeyboardButton(text='Изменить пароль', callback_data='but_editsecret'),
@@ -20,6 +20,8 @@ def getKeyboard():
     keyboard.add(*buttons)
     return keyboard
 
+
+#-------Обработка входящего сообщения------------------
 @dp.message_handler(content_types=types.ContentTypes.TEXT)
 async def getFirstMessage(message: types.Message):
     if len(message.text) == 4 and message.text.isdigit():
@@ -32,7 +34,10 @@ async def getFirstMessage(message: types.Message):
                                         f"IP адресс устройства: {user_info['ipaddr']} \n"
                                         f"Модель устройсва: {user_info['useragent']}\n"
                                         "\n****************************************\n", reply_markup=getKeyboard())
+    elif 
 
 
+
+#-------Запуск бота--------------------------
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
